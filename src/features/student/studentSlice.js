@@ -37,11 +37,27 @@ export const studentSlice = createSlice({
         phone: payload.phone,
         year: payload.year
       };
-      state.studentList = [...state.studentList, newStudent];
+      // Check if the student already existed
+      const studentIndex = state.studentList.findIndex(item => item.email === payload.email);
+      if (studentIndex > -1) {
+        // handle edit an existing student
+        state.studentList[studentIndex] = newStudent;
+      } else {
+        // handle create a new student
+        state.studentList = [...state.studentList, newStudent];
+      }
+    },
+    editStudent: (state, action) => {
+      const { payload } = action;
+      console.log('payload', payload);
+    },
+    removeStudent: (state, action) => {
+      const { payload } = action;
+      state.studentList = state.studentList.filter(item => item.email !== payload);
     }
   }
 })
 
-export const { addStudent } = studentSlice.actions;
+export const { addStudent, editStudent, removeStudent } = studentSlice.actions;
 
 export default studentSlice.reducer;

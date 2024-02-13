@@ -1,9 +1,10 @@
-import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addStudent } from '../../features/student/studentSlice';
 
-const AddStudent = () => {
-  const [inputs, setInputs] = useState({});
+const AddStudent = ({
+  inputs,
+  setInputs
+}) => {
   const dispatch = useDispatch();
 
   const handleChange = e => {
@@ -15,6 +16,7 @@ const AddStudent = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addStudent(inputs))
+    setInputs({email: '', fname: '', lname: '', dob: '', phone: '', year: 'none'});
   }
 
   return (
@@ -64,7 +66,7 @@ const AddStudent = () => {
         <div className='field'>
           <label htmlFor="year">Year enrolled:</label>
           <select name="year" onChange={handleChange} value={inputs.year}>
-            <option value="none" disabled hidden>Select an option</option>
+            <option value="none" disabled selected>Select an option</option>
             <option value="2020">2020</option>
             <option value="2021">2021</option>
             <option value="2022">2022</option>
