@@ -66,7 +66,7 @@ const AddStudent = ({
         <div className='field'>
           <label htmlFor="year">Year enrolled:</label>
           <select name="year" onChange={handleChange} value={inputs.year}>
-            <option value="none" disabled selected>Select an option</option>
+            <option value="0" disabled defaultValue='0'>Select an option</option>
             <option value="2020">2020</option>
             <option value="2021">2021</option>
             <option value="2022">2022</option>

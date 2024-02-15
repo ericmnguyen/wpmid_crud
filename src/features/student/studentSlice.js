@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  // Mock some data
+  // Some mock data
   studentList: [
     {
       email: 'eric@abc.com',
@@ -26,6 +26,10 @@ export const studentSlice = createSlice({
   name: 'student',
   initialState,
   reducers: {
+    getStudents: (state, action) => {
+      const { payload } = action;
+      state.studentList = [...payload];
+    },
     // Handle adding new student to the student list
     addStudent: (state, action) => {
       const { payload } = action;
@@ -58,6 +62,6 @@ export const studentSlice = createSlice({
   }
 })
 
-export const { addStudent, editStudent, removeStudent } = studentSlice.actions;
+export const { getStudents, addStudent, editStudent, removeStudent } = studentSlice.actions;
 
 export default studentSlice.reducer;
