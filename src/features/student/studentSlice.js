@@ -28,27 +28,33 @@ export const studentSlice = createSlice({
   reducers: {
     getStudents: (state, action) => {
       const { payload } = action;
-      state.studentList = [...payload];
+      const convertedData = payload.map(item => {
+        return {
+          studentId: item.StudentId,
+          firstName: item.FirstName,
+          lastName: item.LastName,
+          email: item.EmailAddress,
+          courseCode: item.CourseCode,
+          contactNo: item.ContactNo,
+          nationality: item.Nationality,
+          specialisationCode: item.SpecialisationCode,
+          year: item.YearEnrolled,
+          userId: item.UserId
+        }
+      })
+      state.studentList = [...convertedData];
     },
     // Handle adding new student to the student list
     addStudent: (state, action) => {
       const { payload } = action;
-      const newStudent = {
-        email: payload.email,
-        firstName: payload.fname,
-        lastName: payload.lname,
-        dob: payload.dob,
-        phone: payload.phone,
-        year: payload.year
-      };
       // Check if the student already existed
-      const studentIndex = state.studentList.findIndex(item => item.email === payload.email);
+      const studentIndex = state.studentList.findIndex(item => item.studentId === payload.studentId);
       if (studentIndex > -1) {
         // handle edit an existing student
-        state.studentList[studentIndex] = newStudent;
+        state.studentList[studentIndex] = payload;
       } else {
         // handle create a new student
-        state.studentList = [...state.studentList, newStudent];
+        state.studentList = [...state.studentList, payload];
       }
     },
     editStudent: (state, action) => {

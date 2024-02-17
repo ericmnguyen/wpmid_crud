@@ -16,7 +16,17 @@ const AddStudent = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addStudent(inputs))
-    setInputs({email: '', fname: '', lname: '', dob: '', phone: '', year: 'none'});
+    setInputs({ 
+      studentId: '', 
+      firstName: '', 
+      lastName: '', 
+      email: '', 
+      contactNo: '', 
+      courseCode: '', 
+      year: 'none',
+      nationality: '',
+      userId: '',
+    });
   }
 
   return (
@@ -24,6 +34,30 @@ const AddStudent = ({
       <h1>Add new student</h1>
       <form onSubmit={handleSubmit}>
       <div className='field'>
+          <input
+            name='studentId'
+            placeholder='Student ID'
+            onChange={handleChange}
+            value={inputs.studentId}
+          />
+        </div>
+        <div className='field'>
+          <input
+            name='firstName'
+            placeholder='First name'
+            onChange={handleChange}
+            value={inputs.firstName}
+          />
+        </div>
+        <div className='field'>
+          <input
+            name='lastName'
+            placeholder='Last name'
+            onChange={handleChange}
+            value={inputs.lastName}
+          />
+        </div>
+        <div className='field'>
           <input
             name='email'
             placeholder='WSU email address'
@@ -33,34 +67,26 @@ const AddStudent = ({
         </div>
         <div className='field'>
           <input
-            name='fname'
-            placeholder='First name'
+            name='contactNo'
+            placeholder='Contact No'
             onChange={handleChange}
-            value={inputs.fname}
+            value={inputs.contactNo}
           />
         </div>
         <div className='field'>
           <input
-            name='lname'
-            placeholder='Last name'
-            onChange={handleChange}
-            value={inputs.lname}
-          />
-        </div>
-        <div className='field'>
-          <input
-            name='dob'
-            placeholder='Date of Birth'
-            onChange={handleChange}
-            value={inputs.dob}
-          />
-        </div>
-        <div className='field'>
-          <input
-            name='phone'
+            name='courseCode'
             placeholder='Phone number'
             onChange={handleChange}
-            value={inputs.phone}
+            value={inputs.courseCode}
+          />
+        </div>
+        <div className='field'>
+          <input
+            name='specialisationCode'
+            placeholder='Specialisation Code'
+            onChange={handleChange}
+            value={inputs.specialisationCode}
           />
         </div>
         <div className='field'>
@@ -72,6 +98,22 @@ const AddStudent = ({
             <option value="2022">2022</option>
             <option value="2023">2023</option>
           </select>
+        </div>
+        <div className='field'>
+          <input
+            name='nationality'
+            placeholder='Nationality'
+            onChange={handleChange}
+            value={inputs.nationality}
+          />
+        </div>
+        <div className='field'>
+          <input
+            name='userId'
+            placeholder='User ID'
+            onChange={handleChange}
+            value={inputs.userId}
+          />
         </div>
         <div className='field'>
           <button type='submit'>Submit</button>

@@ -38,15 +38,15 @@ const StudentList = ({
       <h1>Student List</h1>
       <ul>
         {studentList.map(item =>
-          <li key={item.StudentId}>
-            {item.FirstName}---
-            {item.LastName}---
-            {item.EmailAddress}---
-            {item.ContactNo}---
-            {item.CourseCode}---
-            {item.SpecialisationCode}---
-            {item.YearEnrolled}---
-            {item.Nationality}---
+          <li key={item.studentId}>
+            {item.firstName}---
+            {item.lastName}---
+            {item.email}---
+            {item.contactNo}---
+            {item.courseCode}---
+            {item.specialisationCode}---
+            {item.year}---
+            {item.nationality}---
             <button onClick={() => handleEditItem(item)}>Edit</button>/
             <button onClick={() => handleRemoveItem(item.email)}>Remove</button>
           </li>)}
