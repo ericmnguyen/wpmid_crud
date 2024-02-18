@@ -1,11 +1,9 @@
-import { useDispatch } from 'react-redux'
-import { addStudent } from '../../features/student/studentSlice';
+import { createStudent } from '../../features/student/studentService';
 
 const AddStudent = ({
   inputs,
   setInputs
 }) => {
-  const dispatch = useDispatch();
 
   const handleChange = e => {
     const name = e.target.name;
@@ -13,27 +11,29 @@ const AddStudent = ({
     setInputs(val => ({ ...val, [name]: value }));
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(addStudent(inputs))
-    setInputs({ 
-      studentId: '', 
-      firstName: '', 
-      lastName: '', 
-      email: '', 
-      contactNo: '', 
-      courseCode: '', 
-      year: 'none',
-      nationality: '',
-      userId: '',
-    });
+    const res = await createStudent(inputs);
+    if (res) {
+      setInputs({
+        studentId: '',
+        firstName: '',
+        lastName: '',
+        email: '',
+        contactNo: '',
+        courseCode: '',
+        year: 'none',
+        nationality: '',
+        userId: '',
+      });
+    }
   }
 
   return (
     <>
       <h1>Add new student</h1>
       <form onSubmit={handleSubmit}>
-      <div className='field'>
+        <div className='field'>
           <input
             name='studentId'
             placeholder='Student ID'

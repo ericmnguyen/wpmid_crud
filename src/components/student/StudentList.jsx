@@ -1,32 +1,20 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import axios from "axios";
-import { removeStudent, getStudents } from "../../features/student/studentSlice";
+import { loadStudents, removeStudent } from "../../features/student/studentService";
 
 const StudentList = ({
   inputs,
   setInputs,
 }) => {
-  const dispatch = useDispatch();
   const studentList = useSelector((state) => state.student.studentList);
 
   useEffect(() => {
     loadStudents();
   }, [])
 
-  const loadStudents = async () => {
-    try {
-      const { data, status } = await axios.get('http://127.0.0.1:3000/api/students/');
-      if (status === 200) {
-        dispatch(getStudents(data));
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  const handleRemoveItem = (email) => {
-    dispatch(removeStudent(email));
+  const handleRemoveItem = (studentId) => {
+    removeStudent(studentId);
+    // dispatch(removeStudent(email));
   }
 
   const handleEditItem = (info) => {
@@ -48,7 +36,7 @@ const StudentList = ({
             {item.year}---
             {item.nationality}---
             <button onClick={() => handleEditItem(item)}>Edit</button>/
-            <button onClick={() => handleRemoveItem(item.email)}>Remove</button>
+            <button onClick={() => handleRemoveItem(item.studentId)}>Remove</button>
           </li>)}
       </ul>
     </>
