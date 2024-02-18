@@ -27,6 +27,18 @@ export const createStudent = async(studentForm) => {
   return false;
 }
 
+export const updateStudent = async(studentForm) => {
+  const { data }  = await axios.put(`http://127.0.0.1:3000/api/student/${studentForm.studentId}`, studentForm, {
+  headers: {
+    'Content-Type': 'application/json'
+  }});
+  if (data) {
+    loadStudents();
+    return true;
+  }
+  return false;
+}
+
 export const removeStudent = async(studentId) => {
   const { data }  = await axios.delete(`http://127.0.0.1:3000/api/student/${studentId}`);
   if (data) {

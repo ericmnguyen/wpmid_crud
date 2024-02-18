@@ -17,15 +17,15 @@ const StudentList = ({
     // dispatch(removeStudent(email));
   }
 
-  const handleEditItem = (info) => {
-    setInputs({ ...info, fname: info.firstName, lname: info.lastName });
+  const handleEditItem = (item) => {
+    setInputs(item);
   }
 
   return (
     <>
       <h1>Student List</h1>
       <ul>
-        {studentList.map(item =>
+        {studentList?.map(item =>
           <li key={item.studentId}>
             {item.firstName}---
             {item.lastName}---

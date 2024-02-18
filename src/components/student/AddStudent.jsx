@@ -1,10 +1,12 @@
+import { useDispatch } from 'react-redux';
 import { createStudent } from '../../features/student/studentService';
+import { addStudent } from '../../features/student/studentSlice';
 
 const AddStudent = ({
   inputs,
   setInputs
 }) => {
-
+  const dispatch = useDispatch();
   const handleChange = e => {
     const name = e.target.name;
     const value = e.target.value;
@@ -13,20 +15,18 @@ const AddStudent = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await createStudent(inputs);
-    if (res) {
-      setInputs({
-        studentId: '',
-        firstName: '',
-        lastName: '',
-        email: '',
-        contactNo: '',
-        courseCode: '',
-        year: 'none',
-        nationality: '',
-        userId: '',
-      });
-    }
+    dispatch(addStudent(inputs));
+    setInputs({
+      studentId: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      contactNo: '',
+      courseCode: '',
+      year: 'none',
+      nationality: '',
+      userId: '',
+    });
   }
 
   return (
@@ -76,7 +76,7 @@ const AddStudent = ({
         <div className='field'>
           <input
             name='courseCode'
-            placeholder='Phone number'
+            placeholder='Course Code'
             onChange={handleChange}
             value={inputs.courseCode}
           />

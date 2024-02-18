@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { createStudent, updateStudent } from "./studentService";
 
 const initialState = {
   // Some mock data
@@ -28,26 +29,18 @@ export const studentSlice = createSlice({
       state.studentList = [...convertedData];
     },
     // Handle adding new student to the student list
-    // addStudent: (state, action) => {
-    //   const { payload } = action;
-    //   // Check if the student already existed
-    //   const studentIndex = state.studentList.findIndex(item => item.studentId === payload.studentId);
-    //   if (studentIndex > -1) {
-    //     // handle edit an existing student
-    //     state.studentList[studentIndex] = payload;
-    //   } else {
-    //     // handle create a new student
-    //     state.studentList = [...state.studentList, payload];
-    //   }
-    // },
-    // editStudent: (state, action) => {
-    //   const { payload } = action;
-    //   console.log('payload', payload);
-    // },
-    // removeStudent: (state, action) => {
-    //   const { payload } = action;
-    //   state.studentList = state.studentList.filter(item => item.email !== payload);
-    // }
+    addStudent: (state, action) => {
+      const { payload } = action;
+      // Check if the student already existed
+      const studentIndex = state.studentList.findIndex(item => item.studentId === payload.studentId);
+      if (studentIndex > -1) {
+        // handle edit an existing student
+        updateStudent(payload);
+      } else {
+        // handle create a new student
+        createStudent(payload);
+      }
+    },
   }
 })
 
