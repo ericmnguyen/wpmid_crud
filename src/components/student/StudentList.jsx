@@ -14,11 +14,14 @@ const StudentList = ({
 
   const handleRemoveItem = (studentId) => {
     removeStudent(studentId);
-    // dispatch(removeStudent(email));
   }
 
   const handleEditItem = (item) => {
     setInputs(item);
+  }
+
+  const handleStudentDetails = () => {
+    // TODO implementing react router
   }
 
   return (
@@ -35,6 +38,7 @@ const StudentList = ({
             {item.specialisationCode}---
             {item.year}---
             {item.nationality}---
+            <button onClick={() => handleStudentDetails(item.studentId)}>Details</button>/
             <button onClick={() => handleEditItem(item)}>Edit</button>/
             <button onClick={() => handleRemoveItem(item.studentId)}>Remove</button>
           </li>)}
