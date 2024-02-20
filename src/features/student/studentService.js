@@ -2,11 +2,12 @@ import store from '../../app/store';
 import axios from "axios";
 import { getStudents } from '../../features/student/studentSlice';
 
-
+// This BASE_URL should be put in env file
+const BASE_URL = 'http://127.0.0.1:3000/api/student';
 
 export const loadStudents = async () => {
   try {
-    const { data, status } = await axios.get('http://127.0.0.1:3000/api/student/all');
+    const { data, status } = await axios.get(BASE_URL + '/all');
     if (status === 200) {
       store.dispatch(getStudents(data));
     }
@@ -16,7 +17,7 @@ export const loadStudents = async () => {
 };
 
 export const createStudent = async(studentForm) => {
-  const { data }  = await axios.post('http://127.0.0.1:3000/api/student/create', studentForm, {
+  const { data }  = await axios.post(BASE_URL + '/create', studentForm, {
   headers: {
     'Content-Type': 'application/json'
   }});
@@ -28,7 +29,7 @@ export const createStudent = async(studentForm) => {
 }
 
 export const updateStudent = async(studentForm) => {
-  const { data }  = await axios.put(`http://127.0.0.1:3000/api/student/${studentForm.studentId}`, studentForm, {
+  const { data }  = await axios.put(BASE_URL + `${studentForm.studentId}`, studentForm, {
   headers: {
     'Content-Type': 'application/json'
   }});
@@ -40,7 +41,7 @@ export const updateStudent = async(studentForm) => {
 }
 
 export const removeStudent = async(studentId) => {
-  const { data }  = await axios.delete(`http://127.0.0.1:3000/api/student/${studentId}`);
+  const { data }  = await axios.delete(BASE_URL + `${studentId}`);
   if (data) {
     loadStudents();
     return true;
