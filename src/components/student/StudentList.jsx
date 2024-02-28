@@ -1,19 +1,19 @@
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
-import { loadStudents, removeStudent } from "../../features/student/studentService";
+import { convertStudentData } from "../../../utils/dataConversion";
+import { useGetStudents, useRemoveStudent } from "../../app/hook/useStudent";
 
 const StudentList = ({
   inputs,
   setInputs,
 }) => {
-  const studentList = useSelector((state) => state.student.studentList);
+  // const studentList = useSelector((state) => state.student.studentList);
 
-  useEffect(() => {
-    loadStudents();
-  }, [])
+  const { error, data, isFetching } = useGetStudents();
+  const removeStudent = useRemoveStudent();
+
+  const studentList = convertStudentData(data);
 
   const handleRemoveItem = (studentId) => {
-    removeStudent(studentId);
+    removeStudent.mutate(studentId);
   }
 
   const handleEditItem = (item) => {
@@ -28,7 +28,7 @@ const StudentList = ({
     <>
       <h1>Student List</h1>
       <ul>
-        {studentList?.map(item =>
+        {isFetching ? <>Loading...</> : studentList?.map(item =>
           <li key={item.studentId}>
             {item.firstName}---
             {item.lastName}---

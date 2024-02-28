@@ -1,12 +1,16 @@
-import { useDispatch } from 'react-redux';
-import { createStudent } from '../../features/student/studentService';
-import { addStudent } from '../../features/student/studentSlice';
+import { convertStudentData } from '../../../utils/dataConversion';
+import { useGetStudents, useCreateStudent, useUpdateStudent } from '../../app/hook/useStudent';
 
 const AddStudent = ({
   inputs,
   setInputs
 }) => {
-  const dispatch = useDispatch();
+
+  const createStudent = useCreateStudent();
+  const updateStudent = useUpdateStudent();
+  const { error, data, isFetching } = useGetStudents();
+  const studentList = convertStudentData(data);
+
   const handleChange = e => {
     const name = e.target.name;
     const value = e.target.value;
@@ -15,7 +19,16 @@ const AddStudent = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(addStudent(inputs));
+
+    const studentIndex = studentList.findIndex(item => item.studentId === inputs.studentId);
+    if (studentIndex > -1) {
+      // handle edit an existing student
+      updateStudent.mutate(inputs);
+    } else {
+      // handle create a new student
+      createStudent.mutate(inputs);
+    }
+
     setInputs({
       studentId: '',
       firstName: '',
@@ -115,7 +128,7 @@ const AddStudent = ({
             value={inputs.userId}
           />
         </div>
-        <div className='field'>
+        <div className='field' disabled={updateStudent.isPending}>
           <button type='submit'>Submit</button>
         </div>
       </form>
